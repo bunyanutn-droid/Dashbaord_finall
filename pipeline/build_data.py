@@ -2,7 +2,7 @@
 
 Usage:  python -I pipeline/build_data.py
 Reads   data_raw/** (extracted from the attached zip files)
-Writes  dashboard/data.js  (window.DASH = {...})
+Writes  docs/data.js  (window.DASH = {...})
         reports/data_quality.json, reports/analysis_results.json
 
 No value is invented: missing stays missing (null), flagged rows are kept and
@@ -555,7 +555,7 @@ DASH = {
     "panel": {"rows": panel_rows, "file": rel(F_PANEL)},
 }
 
-out_dir = ROOT / "dashboard"; out_dir.mkdir(exist_ok=True)
+out_dir = ROOT / "docs"; out_dir.mkdir(exist_ok=True)
 js = "window.DASH = " + json.dumps(DASH, ensure_ascii=False, separators=(",", ":"), default=clean) + ";\n"
 (out_dir / "data.js").write_text(js, encoding="utf-8")
 rep = ROOT / "reports"; rep.mkdir(exist_ok=True)

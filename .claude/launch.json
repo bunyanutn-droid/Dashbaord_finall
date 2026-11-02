@@ -2,9 +2,9 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "dashboard",
+      "name": "docs",
       "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "http.server", "8765", "--directory", "dashboard"],
+      "runtimeArgs": ["-m", "http.server", "8765", "--directory", "docs"],
       "port": 8765
     }
   ]

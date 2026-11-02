@@ -3,15 +3,15 @@
 แดชบอร์ดวิเคราะห์เสรีภาพทางอินเทอร์เน็ต ข่าวปลอม และความเสียหายจากมิจฉาชีพ (ใช้ข้อมูลจากไฟล์แนบเท่านั้น)
 
 ## โครงสร้าง
-- `dashboard/` — หน้าเว็บ (`index.html`, `app.js`) และชุดข้อมูลที่ประมวลผลแล้ว (`data.js`)
-- `pipeline/build_data.py` — อ่านข้อมูลดิบ ตรวจคุณภาพ คำนวณสถิติ/พยากรณ์ แล้วสร้าง `dashboard/data.js`
+- `docs/` — หน้าเว็บ (`index.html`, `app.js`) และชุดข้อมูลที่ประมวลผลแล้ว (`data.js`)
+- `pipeline/build_data.py` — อ่านข้อมูลดิบ ตรวจคุณภาพ คำนวณสถิติ/พยากรณ์ แล้วสร้าง `docs/data.js`
 - `pipeline/make_report.py` — สร้าง `reports/สรุปผลการวิเคราะห์.md`
 - `reports/` — รายงานคุณภาพข้อมูลและผลวิเคราะห์
 - `*.zip`, `00_Data_Guide_TH.pdf` — ข้อมูลต้นฉบับและคู่มือ
 
 ## เปิดดูแดชบอร์ด
 ```bash
-python -m http.server 8765 --directory dashboard
+python -m http.server 8765 --directory docs
 ```
 แล้วเปิด http://localhost:8765 (ต้องต่ออินเทอร์เน็ตเพื่อโหลดไลบรารีกราฟ ECharts)
 
