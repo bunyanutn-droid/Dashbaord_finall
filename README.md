@@ -1,5 +1,5 @@
 # Digital Freedom & Disinformation Intelligence Dashboard
-
+ https://bunyanutn-droid.github.io/Dashbaord_finall/
 แดชบอร์ดวิเคราะห์เสรีภาพทางอินเทอร์เน็ต ข่าวปลอม และความเสียหายจากมิจฉาชีพ (ใช้ข้อมูลจากไฟล์แนบเท่านั้น)
 
 ## โครงสร้าง
