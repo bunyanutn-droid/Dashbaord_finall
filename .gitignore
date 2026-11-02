@@ -1,0 +1,7 @@
+# ข้อมูลที่แตก zip แล้ว (ใหญ่ 88 MB) — สร้างใหม่ได้จากไฟล์ .zip ในโฟลเดอร์นี้
+data_raw/
+
+# ไฟล์ชั่วคราว
+__pycache__/
+*.pyc
+.claude/settings.local.json

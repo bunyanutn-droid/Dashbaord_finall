@@ -1,0 +1,371 @@
+{
+ "files": [
+  {
+   "dataset": "Freedom on the Net",
+   "file": "data_raw/02_Freedom_on_the_Net/freedom_on_the_net_scores.csv",
+   "sheet": "-",
+   "rows": 940,
+   "cols": 12,
+   "missing_total": 0,
+   "missing_by_col": {},
+   "dup_rows": 0,
+   "dup_key": 0,
+   "key": [
+    "iso3",
+    "data_year"
+   ],
+   "date_issues": {}
+  },
+  {
+   "dataset": "EUvsDisinfo",
+   "file": "data_raw/03_EUvsDisinfo/euvsdisinfo_base.csv",
+   "sheet": "-",
+   "rows": 18249,
+   "cols": 9,
+   "missing_total": 54,
+   "missing_by_col": {
+    "keywords": 54
+   },
+   "dup_rows": 0,
+   "dup_key": 0,
+   "key": [
+    "debunk_id",
+    "article_id"
+   ],
+   "date_issues": {
+    "debunk_date": {
+     "unparsed": 0,
+     "min": "2015-01-06",
+     "max": "2023-08-01",
+     "format": "%d-%m-%Y"
+    }
+   }
+  },
+  {
+   "dataset": "AFNC items",
+   "file": "data_raw/04_Thai_Disinformation_and_Scams/csv/afnc_items.csv",
+   "sheet": "-",
+   "rows": 17726,
+   "cols": 17,
+   "missing_total": 14085,
+   "missing_by_col": {
+    "verdict_th": 3268,
+    "verdict_en": 3268,
+    "verdict_source": 3268,
+    "checked_by_agency": 3641,
+    "topic_tags": 640
+   },
+   "dup_rows": 0,
+   "dup_key": 0,
+   "key": [
+    "post_id"
+   ],
+   "date_issues": {
+    "date": {
+     "unparsed": 0,
+     "min": "2019-01-05",
+     "max": "2026-10-31",
+     "format": "YYYY-MM-DD"
+    },
+    "week_start": {
+     "unparsed": 0,
+     "min": "2018-12-30",
+     "max": "2026-10-25",
+     "format": "YYYY-MM-DD"
+    }
+   }
+  },
+  {
+   "dataset": "ACSC weekly",
+   "file": "data_raw/04_Thai_Disinformation_and_Scams/csv/acsc_weekly.csv",
+   "sheet": "acsc_weekly",
+   "rows": 48,
+   "cols": 18,
+   "missing_total": 85,
+   "missing_by_col": {
+    "cases_change_vs_prev_week": 2,
+    "loss_change_vs_prev_week_baht": 2,
+    "top_type_th": 2,
+    "top_type_case_share_pct": 11,
+    "highest_loss_type_th": 3,
+    "highest_loss_type_loss_baht": 21,
+    "flag": 44
+   },
+   "dup_rows": 0,
+   "dup_key": 0,
+   "key": [
+    "week_start"
+   ],
+   "date_issues": {
+    "week_start": {
+     "unparsed": 0,
+     "min": "2025-11-09",
+     "max": "2026-10-18",
+     "format": "YYYY-MM-DD"
+    },
+    "week_end": {
+     "unparsed": 0,
+     "min": "2025-11-15",
+     "max": "2026-10-24",
+     "format": "YYYY-MM-DD"
+    },
+    "article_date": {
+     "unparsed": 0,
+     "min": "2025-11-17",
+     "max": "2026-10-27",
+     "format": "YYYY-MM-DD"
+    }
+   }
+  },
+  {
+   "dataset": "Weekly panel",
+   "file": "data_raw/04_Thai_Disinformation_and_Scams/csv/weekly_panel.csv",
+   "sheet": "weekly_panel",
+   "rows": 409,
+   "cols": 27,
+   "missing_total": 3718,
+   "missing_by_col": {
+    "afnc_false_share_pct": 27,
+    "acsc_cases": 361,
+    "acsc_loss_baht": 361,
+    "acsc_loss_precision": 361,
+    "acsc_loss_per_case_baht": 361,
+    "acsc_top_type_th": 363,
+    "acsc_top_type_case_share_pct": 372,
+    "acsc_highest_loss_type_th": 364,
+    "acsc_highest_loss_type_loss_baht": 382,
+    "acsc_flag": 405,
+    "acsc_source_url": 361
+   },
+   "dup_rows": 0,
+   "dup_key": 0,
+   "key": [
+    "week_start"
+   ],
+   "date_issues": {
+    "week_start": {
+     "unparsed": 0,
+     "min": "2018-12-30",
+     "max": "2026-10-25",
+     "format": "YYYY-MM-DD"
+    },
+    "week_end": {
+     "unparsed": 0,
+     "min": "2019-01-05",
+     "max": "2026-10-31",
+     "format": "YYYY-MM-DD"
+    }
+   }
+  }
+ ],
+ "checks": [
+  {
+   "dataset": "Freedom on the Net",
+   "check": "total_score = ผลรวม 3 องค์ประกอบ",
+   "status": "ผ่าน",
+   "ok": true,
+   "detail": "ไม่ตรง 0 แถว จาก 940",
+   "action": "แสดงค่าตามต้นฉบับ ไม่แก้ไข"
+  },
+  {
+   "dataset": "Freedom on the Net",
+   "check": "status_code สอดคล้องเกณฑ์คะแนน (70–100 เสรี, 40–69 เสรีบางส่วน, 0–39 ไม่เสรี)",
+   "status": "ผ่าน",
+   "ok": true,
+   "detail": "ไม่สอดคล้อง 0 แถว",
+   "action": "ใช้ status ตามต้นฉบับ"
+  },
+  {
+   "dataset": "Freedom on the Net",
+   "check": "คะแนนอยู่ในช่วงเต็ม (25/35/40/100)",
+   "status": "ผ่าน",
+   "ok": true,
+   "detail": "เกินช่วง 0 แถว",
+   "action": "-"
+  },
+  {
+   "dataset": "Freedom on the Net",
+   "check": "ไฟล์ CSV และ XLSX ตรงกัน",
+   "status": "ผ่าน",
+   "ok": true,
+   "detail": "ค่าทุกช่องตรงกัน",
+   "action": "ใช้ไฟล์ CSV เป็นหลัก"
+  },
+  {
+   "dataset": "Freedom on the Net",
+   "check": "ความครอบคลุมประเทศต่อปีไม่เท่ากัน",
+   "status": "พบประเด็น",
+   "ok": false,
+   "detail": "จำนวนประเทศต่อปี: 2010:37, 2011:47, 2012:59, 2013:64, 2014:64, 2015:64, 2016:64, 2017:64, 2018:64, 2019:64, 2020:69, 2021:69, 2022:69, 2023:71, 2024:71",
+   "action": "ไม่เติมค่า ประเทศที่ไม่มีข้อมูลแสดงเป็น N/A; การจัดอันดับระบุจำนวนประเทศในปีนั้นเสมอ"
+  },
+  {
+   "dataset": "EUvsDisinfo",
+   "check": "วันที่เป็นข้อความ DD-MM-YYYY",
+   "status": "ผ่าน",
+   "ok": true,
+   "detail": "แปลงสำเร็จทุกแถวด้วยรูปแบบ %d-%m-%Y",
+   "action": "แปลงเป็นวันที่ก่อนเรียงหรือรวมกลุ่ม"
+  },
+  {
+   "dataset": "EUvsDisinfo",
+   "check": "ปีสุดท้ายไม่ครบปี",
+   "status": "พบประเด็น",
+   "ok": false,
+   "detail": "ข้อมูลล่าสุด 2023-08-01 (ปี 2023 มีถึงเดือนสิงหาคม)",
+   "action": "ระบุว่าเป็นปีไม่ครบเมื่อเทียบรายปี"
+  },
+  {
+   "dataset": "EUvsDisinfo",
+   "check": "1 แถว = บทความ ไม่ใช่การหักล้าง",
+   "status": "ผ่าน",
+   "ok": true,
+   "detail": "18,249 แถว แต่มี debunk_id ไม่ซ้ำ 8,522 รายการ",
+   "action": "นับการหักล้างด้วย debunk_id ไม่ซ้ำ"
+  },
+  {
+   "dataset": "EUvsDisinfo",
+   "check": "keywords ว่าง",
+   "status": "พบประเด็น",
+   "ok": false,
+   "detail": "ว่าง 54 แถว",
+   "action": "จัดเป็น '(ไม่ระบุ)' ไม่ตัดทิ้ง"
+  },
+  {
+   "dataset": "EUvsDisinfo",
+   "check": "ไม่มีตัวแปรประเทศ",
+   "status": "พบประเด็น",
+   "ok": false,
+   "detail": "ไม่มีคอลัมน์ประเทศของผู้เผยแพร่/เป้าหมาย มีเพียงภาษาและโดเมน",
+   "action": "ไม่เชื่อมกับ Freedom on the Net รายประเทศ"
+  },
+  {
+   "dataset": "AFNC items",
+   "check": "url สร้างได้จาก post_id",
+   "status": "ผ่าน",
+   "ok": true,
+   "detail": "รูปแบบ https://www.antifakenewscenter.com/?p={post_id}",
+   "action": "เก็บเฉพาะ post_id ในชุดข้อมูลแดชบอร์ด"
+  },
+  {
+   "dataset": "AFNC items",
+   "check": "หัวข้อคำตัดสินซ้ำกัน",
+   "status": "พบประเด็น",
+   "ok": false,
+   "detail": "932 คำตัดสินมีหัวข้อซ้ำกับโพสต์อื่น แต่ post_id ไม่ซ้ำ (ข่าวลือที่วนกลับมา เช่น ทำใบขับขี่ออนไลน์)",
+   "action": "ไม่ลบ เพราะเป็นโพสต์แยกกันคนละวัน; ระบุในข้อจำกัด"
+  },
+  {
+   "dataset": "AFNC items",
+   "check": "ปี 2019 ข้อมูลน้อย",
+   "status": "พบประเด็น",
+   "ok": false,
+   "detail": "มีคำตัดสินในปี 2019 เพียง 78 รายการ (ศูนย์ฯ เปิด พ.ย. 2019)",
+   "action": "ใช้ 2020-01 เป็นจุดเริ่มอนุกรมพยากรณ์"
+  },
+  {
+   "dataset": "AFNC items",
+   "check": "checked_by_agency ว่าง",
+   "status": "พบประเด็น",
+   "ok": false,
+   "detail": "ว่าง 3,641 แถว (20.5%)",
+   "action": "แสดงเป็น '(ไม่ระบุ)'"
+  },
+  {
+   "dataset": "AFNC items",
+   "check": "verdict ได้จากแท็กแทนป้าย",
+   "status": "พบประเด็น",
+   "ok": false,
+   "detail": "13 แถวกู้คำตัดสินจากแท็ก",
+   "action": "คงไว้ตามผู้จัดทำ แสดงใน Data Explorer"
+  },
+  {
+   "dataset": "AFNC items",
+   "check": "view_count เป็นภาพ ณ วันดาวน์โหลด",
+   "status": "พบประเด็น",
+   "ok": false,
+   "detail": "ยอดชม ณ 1 พ.ย. 2026 โพสต์เก่าสะสมนานกว่า",
+   "action": "ไม่ใช้เปรียบเทียบความนิยมข้ามปี"
+  },
+  {
+   "dataset": "Weekly panel",
+   "check": "afnc_* ใน weekly_panel ตรงกับการนับใหม่จาก afnc_items",
+   "status": "ผ่าน",
+   "ok": true,
+   "detail": "สัปดาห์ที่ไม่ตรง 0 จาก 409",
+   "action": "ยืนยันว่านับจากไฟล์เดียวกัน"
+  },
+  {
+   "dataset": "ACSC weekly",
+   "check": "loss_per_case_baht = loss_baht ÷ cases",
+   "status": "ผ่าน",
+   "ok": true,
+   "detail": "ไม่ตรง 0 แถว",
+   "action": "คำนวณใหม่ในแดชบอร์ด"
+  },
+  {
+   "dataset": "ACSC weekly",
+   "check": "ค่าผิดปกติ (IQR×3) ของจำนวนคดี",
+   "status": "พบประเด็น",
+   "ok": false,
+   "detail": "สัปดาห์ 2026-08-16: 79,311 คดี (ปกติ 6,439)",
+   "action": "ไม่ลบ แต่ตัดออกจากผลรวม/สถิติ/พยากรณ์โดยค่าเริ่มต้น (ผู้ใช้เลือกรวมได้)"
+  },
+  {
+   "dataset": "ACSC weekly",
+   "check": "สัปดาห์ที่ไม่มีการแถลง",
+   "status": "พบประเด็น",
+   "ok": false,
+   "detail": "ไม่มีตัวเลข: 2026-06-14, 2026-07-26 และ 2026-10-25 (ยังไม่แถลงขณะรวบรวม)",
+   "action": "ปล่อยว่าง ไม่เติมศูนย์"
+  },
+  {
+   "dataset": "ACSC weekly",
+   "check": "เปลี่ยนความละเอียดของหน่วยเงิน",
+   "status": "พบประเด็น",
+   "ok": false,
+   "detail": "exact 37 สัปดาห์, rounded (ปัดเป็นล้านบาท ตั้งแต่ 2026-08-09) 11 สัปดาห์",
+   "action": "แสดงป้าย rounded; หน่วย = บาท (THB) ทั้งหมด"
+  },
+  {
+   "dataset": "ACSC weekly",
+   "check": "ช่วงเวลา 8 วันซ้อนทับ",
+   "status": "พบประเด็น",
+   "ok": false,
+   "detail": "สัปดาห์ 2026-05-30 ถึง 2026-06-06 (8 วัน) ซ้อนวันสุดท้ายของสัปดาห์ก่อน 1 วัน",
+   "action": "คงไว้; ความเสียหายต่อวันใช้ days จริงในการหาร"
+  },
+  {
+   "dataset": "ACSC weekly",
+   "check": "ส่วนต่างที่แถลง ≠ ส่วนต่างที่คำนวณ",
+   "status": "พบประเด็น",
+   "ok": false,
+   "detail": "ไม่ตรง 21 สัปดาห์ (ตำรวจเทียบกับตัวเลขที่ปรับปรุง)",
+   "action": "กราฟการเปลี่ยนแปลงคำนวณใหม่จาก cases และ loss_baht"
+  },
+  {
+   "dataset": "ACSC weekly",
+   "check": "ไม่มีจำนวนผู้เสียหาย",
+   "status": "พบประเด็น",
+   "ok": false,
+   "detail": "มีเพียงจำนวนคดีที่แจ้ง ไม่มีจำนวนผู้เสียหาย และไม่มีมูลค่าแยกทุกประเภท",
+   "action": "แสดง N/A สำหรับผู้เสียหาย; มูลค่าตามประเภทใช้ได้เฉพาะประเภทที่เสียหายสูงสุดของสัปดาห์"
+  },
+  {
+   "dataset": "ข้ามชุดข้อมูล",
+   "check": "ช่วงเวลาทับซ้อน",
+   "status": "พบประเด็น",
+   "ok": false,
+   "detail": "FOTN 2010–2024 (data_year) · EUvsDisinfo 2015-01 – 2023-08 · AFNC 2019-01 – 2026-10 · ACSC 2025-11 – 2026-10",
+   "action": "FOTN กับ ACSC ไม่มีปีทับซ้อน จึงไม่คำนวณความสัมพันธ์ระหว่างคู่นี้"
+  },
+  {
+   "dataset": "ข้ามชุดข้อมูล",
+   "check": "ไฟล์ AI Incident Database",
+   "status": "พบประเด็น",
+   "ok": false,
+   "detail": "คู่มือกล่าวถึงชุดที่ 1 (AI Incident Database) แต่ไม่มีในไฟล์แนบ",
+   "action": "ไม่นำมาใช้"
+  }
+ ]
+}

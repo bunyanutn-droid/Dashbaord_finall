@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Digital Freedom Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light;
+  --bg:#f6f6f4; --surface:#ffffff; --surface-2:#fafaf9; --line:#e6e4e0; --line-2:#d6d3cf;
+  --ink:#16181b; --ink-2:#4d4f53; --muted:#7a7c80;
+  --red-900:#7a1016; --red:#a51d24; --red-500:#c8333a; --red-200:#f3c6c3; --red-100:#fdecea; --red-50:#fff6f5;
+  --distorted:#e2725b; --true:#2e7d32; --true-100:#e7f3e8;
+  --amber:#b77800; --amber-100:#fff4dc;
+  --c1:#2a78d6; --c2:#eb6834; --c3:#1baf7a; --c4:#eda100; --c5:#e87ba4; --c6:#6250d6; --cx:#9a9893;
+  --radius:12px; --shadow:0 1px 2px rgba(20,20,20,.05),0 2px 10px rgba(20,20,20,.04);
+  --font:"IBM Plex Sans Thai","Noto Sans Thai","Leelawadee UI","Tahoma",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:var(--font);background:var(--bg);color:var(--ink);font-size:14px;line-height:1.55}
+a{color:var(--red)}
+button{font-family:inherit}
+.hidden{display:none!important}
+
+/* ---------- cover ---------- */
+#cover{position:fixed;inset:0;z-index:50;overflow:auto;background:#fff}
+.cover-wrap{min-height:100%;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);align-items:stretch}
+.cover-text{padding:56px 6vw;display:flex;flex-direction:column;justify-content:center;gap:18px;background:#fff}
+.cover-kicker{display:inline-flex;align-items:center;gap:8px;color:var(--red);font-weight:600;letter-spacing:.02em;font-size:13px}
+.cover-kicker .dot{width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 0 4px var(--red-100)}
+.cover-text h1{margin:0;font-size:clamp(28px,3.6vw,46px);line-height:1.2;font-weight:700}
+.cover-text h1 .en{display:block;font-size:.5em;color:var(--ink-2);font-weight:500;margin-top:10px;letter-spacing:.01em}
+.cover-text p{margin:0;color:var(--ink-2);max-width:60ch;font-size:15.5px}
+.cover-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;max-width:620px}
+.cover-stats div{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--surface-2)}
+.cover-stats b{display:block;font-size:20px;color:var(--red)}
+.cover-stats span{font-size:12px;color:var(--muted)}
+.btn-open{align-self:flex-start;background:var(--red);color:#fff;border:0;border-radius:999px;padding:14px 28px;font-size:16px;font-weight:600;cursor:pointer;box-shadow:0 6px 18px rgba(165,29,36,.28);transition:transform .15s,background .15s}
+.btn-open:hover{background:var(--red-900);transform:translateY(-1px)}
+.btn-open:focus-visible{outline:3px solid var(--red-200);outline-offset:3px}
+.cover-note{font-size:12px;color:var(--muted);max-width:62ch}
+.cover-art{position:relative;background:linear-gradient(160deg,#7a1016 0%,#a51d24 45%,#d9534f 100%);overflow:hidden;display:flex;align-items:center;justify-content:center;min-height:420px}
+.cover-art svg{width:min(88%,560px);height:auto;filter:drop-shadow(0 20px 40px rgba(0,0,0,.25))}
+.cover-art .caption{position:absolute;left:16px;bottom:12px;color:rgba(255,255,255,.75);font-size:11px}
+
+/* ---------- app shell ---------- */
+header.top{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line)}
+.top-inner{display:flex;align-items:center;gap:14px;padding:10px 18px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.brand .logo{width:30px;height:30px;border-radius:8px;background:var(--red);display:grid;place-items:center;color:#fff;font-weight:700;flex:none}
+.brand b{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand small{display:block;color:var(--muted);font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top-actions{margin-left:auto;display:flex;gap:8px}
+.btn{border:1px solid var(--line-2);background:#fff;color:var(--ink);border-radius:8px;padding:7px 12px;cursor:pointer;font-size:13px}
+.btn:hover{border-color:var(--red);color:var(--red)}
+.btn.primary{background:var(--red);border-color:var(--red);color:#fff}
+.btn.primary:hover{background:var(--red-900);color:#fff}
+.btn.sm{padding:4px 9px;font-size:12px}
+nav.tabs{display:flex;gap:2px;padding:0 12px;overflow-x:auto;scrollbar-width:thin}
+nav.tabs button{border:0;background:none;padding:10px 12px;font-size:13.5px;color:var(--ink-2);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+nav.tabs button.active{color:var(--red);border-bottom-color:var(--red);font-weight:600}
+nav.tabs button:hover{color:var(--ink)}
+.layout{display:grid;grid-template-columns:276px minmax(0,1fr);min-height:calc(100vh - 100px)}
+aside.sidebar{background:#fff;border-right:1px solid var(--line);padding:14px 14px 40px;position:sticky;top:96px;height:calc(100vh - 96px);overflow:auto}
+main{padding:18px 22px 60px;min-width:0}
+.side-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.side-h h3{margin:0;font-size:14px}
+.fgroup{border-top:1px solid var(--line);padding:10px 0}
+.fgroup > label,.fgroup > .lbl{display:block;font-size:12px;font-weight:600;color:var(--ink-2);margin-bottom:6px}
+.fgroup .hint{font-size:11px;color:var(--muted);margin-top:4px}
+.chips{display:flex;flex-wrap:wrap;gap:4px}
+.chip{border:1px solid var(--line-2);background:#fff;border-radius:999px;padding:2px 9px;font-size:12px;cursor:pointer;color:var(--ink-2)}
+.chip.on{background:var(--red);border-color:var(--red);color:#fff}
+.chip:focus-visible,.btn:focus-visible,nav.tabs button:focus-visible{outline:2px solid var(--red-200);outline-offset:2px}
+input[type=date],select,input[type=search]{font-family:inherit;font-size:13px;border:1px solid var(--line-2);border-radius:8px;padding:6px 8px;background:#fff;color:var(--ink);width:100%}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.chk{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink-2);margin:3px 0}
+.active-filters{background:var(--red-50);border:1px solid var(--red-200);border-radius:10px;padding:8px 12px;margin-bottom:14px;font-size:12.5px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.active-filters .tag{background:#fff;border:1px solid var(--red-200);border-radius:999px;padding:1px 8px;color:var(--red-900)}
+.active-filters .none{color:var(--muted)}
+
+/* ---------- content ---------- */
+.page-h{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px;margin-bottom:14px}
+.page-h h2{margin:0;font-size:21px}
+.page-h p{margin:2px 0 0;color:var(--ink-2);font-size:13px;max-width:90ch}
+.sec-h{margin:26px 0 10px;font-size:16px;display:flex;align-items:center;gap:8px}
+.sec-h .num{background:var(--red);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.kpis{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:10px}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;box-shadow:var(--shadow);cursor:pointer;position:relative;transition:border-color .15s}
+.kpi:hover{border-color:var(--red-200)}
+.kpi .k-l{font-size:12px;color:var(--ink-2);min-height:2.6em}
+.kpi .k-v{font-size:24px;font-weight:700;letter-spacing:-.01em;margin:2px 0}
+.kpi .k-v.red{color:var(--red)} .kpi .k-v.green{color:var(--true)}
+.kpi .k-s{font-size:11.5px;color:var(--muted)}
+.kpi .k-d{font-size:12px;margin-top:2px}
+.kpi .src{position:absolute;top:8px;right:9px;font-size:10.5px;color:var(--muted)}
+.up{color:var(--red)} .down{color:var(--true)} .flat{color:var(--muted)}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px 16px;min-width:0}
+.card h4{margin:0;font-size:14.5px}
+.card .sub{font-size:12px;color:var(--muted);margin:2px 0 8px}
+.card .ch{height:300px;width:100%}
+.card .ch.tall{height:420px}
+.card .ch.xl{height:560px}
+.card-f{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;justify-content:space-between;border-top:1px dashed var(--line);margin-top:8px;padding-top:8px;font-size:11.5px;color:var(--muted)}
+.card-f .applied{flex:1;min-width:200px}
+.linkbtn{background:none;border:0;color:var(--red);cursor:pointer;font-size:11.5px;padding:0;text-decoration:underline}
+.finding{font-size:13px;color:var(--ink);background:var(--surface-2);border-left:3px solid var(--red);padding:7px 10px;border-radius:0 8px 8px 0;margin-top:8px}
+.warnbox{background:var(--red-100);border:1px solid var(--red-200);color:var(--red-900);border-radius:10px;padding:10px 12px;font-size:13px}
+.infobox{background:var(--amber-100);border:1px solid #f1d9a6;color:#5d4100;border-radius:10px;padding:10px 12px;font-size:13px}
+.na{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:6px;height:100%;min-height:180px;color:var(--ink-2);font-size:13px;padding:16px;background:repeating-linear-gradient(135deg,#fafaf9 0 10px,#f4f3f1 10px 20px);border-radius:10px}
+.na b{color:var(--red-900)}
+table.t{border-collapse:collapse;width:100%;font-size:12.5px}
+table.t th,table.t td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+table.t th{background:var(--surface-2);font-weight:600;color:var(--ink-2);position:sticky;top:0;z-index:1}
+table.t td.n,table.t th.n{text-align:right;font-variant-numeric:tabular-nums}
+table.t tr.hl td{background:var(--red-50)}
+table.t tr.click{cursor:pointer} table.t tr.click:hover td{background:#f7f6f4}
+.tscroll{overflow:auto;max-height:420px;border:1px solid var(--line);border-radius:10px}
+.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin-top:6px}
+.summary .s{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.summary .s h5{margin:0 0 4px;font-size:12px;color:var(--red);text-transform:none}
+.summary .s div{font-size:13px}
+.qa{background:#fff;border:1px solid var(--line);border-radius:var(--radius);margin-bottom:8px}
+.qa summary{cursor:pointer;padding:11px 14px;font-weight:600;list-style:none;display:flex;gap:10px;align-items:flex-start}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary .qn{background:var(--red);color:#fff;border-radius:6px;padding:0 7px;font-size:12px;flex:none;margin-top:2px}
+.qa .body{padding:0 14px 12px 14px;font-size:13.5px}
+.badge{display:inline-block;border-radius:999px;padding:1px 8px;font-size:11.5px;font-weight:600}
+.b-ok{background:var(--true-100);color:#1d5e22}
+.b-warn{background:var(--amber-100);color:#6d4c00}
+.b-no{background:var(--red-100);color:var(--red-900)}
+.legend-inline{display:flex;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--ink-2);margin:2px 0 6px}
+.legend-inline i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.subtabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px}
+.toolbar > *{width:auto}
+.pager{display:flex;gap:6px;align-items:center;justify-content:flex-end;margin-top:8px;font-size:12.5px}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin:6px 0}
+.stat-grid div{background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:6px 9px}
+.stat-grid b{display:block;font-size:17px}
+.stat-grid span{font-size:11px;color:var(--muted)}
+
+/* ---------- modal ---------- */
+#modal{position:fixed;inset:0;z-index:60;background:rgba(20,20,22,.45);display:flex;align-items:flex-start;justify-content:center;padding:4vh 12px;overflow:auto}
+#modal .box{background:#fff;border-radius:14px;max-width:980px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+#modal .mh{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--line)}
+#modal .mh h3{margin:0;font-size:16px}
+#modal .mh button{margin-left:auto}
+#modal .mb{padding:14px 18px 18px;font-size:13px}
+dl.src{display:grid;grid-template-columns:170px minmax(0,1fr);gap:4px 12px;margin:0 0 12px}
+dl.src dt{color:var(--muted);font-size:12px}
+dl.src dd{margin:0;word-break:break-word}
+code{background:#f3f2ef;border-radius:4px;padding:0 4px;font-size:12px}
+#loading{position:fixed;inset:0;display:grid;place-items:center;background:#fff;z-index:70;font-size:15px;color:var(--ink-2)}
+#loading .spin{width:34px;height:34px;border:3px solid var(--red-100);border-top-color:var(--red);border-radius:50%;animation:sp 1s linear infinite;margin:0 auto 10px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.menu-btn{display:none}
+
+/* ---------- mascot ---------- */
+#mascot{position:fixed;right:14px;bottom:10px;z-index:30;display:flex;flex-direction:column;align-items:flex-end;gap:6px;pointer-events:none}
+#mascot > *{pointer-events:auto}
+.m-btn{width:112px;height:140px;border:0;background:none;padding:0;cursor:pointer;filter:drop-shadow(0 6px 10px rgba(0,0,0,.22));transition:transform .15s}
+.m-btn:hover{transform:translateY(-3px) rotate(-2deg)}
+.m-btn:focus-visible{outline:3px solid var(--red-200);outline-offset:2px;border-radius:12px}
+.m-btn svg{width:100%;height:100%;display:block}
+.m-badge{position:relative;background:var(--red);color:#fff;border:0;border-radius:12px;padding:7px 12px;font-size:12.5px;font-weight:600;cursor:pointer;box-shadow:0 4px 14px rgba(165,29,36,.35);animation:mb 2s ease-in-out infinite;font-family:inherit}
+.m-badge::after{content:"";position:absolute;right:42px;bottom:-6px;border:7px solid transparent;border-top-color:var(--red);border-bottom:0}
+@keyframes mb{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+#mPanel{width:min(380px,calc(100vw - 28px));max-height:min(72vh,620px);background:#fff;border:1px solid var(--line-2);border-radius:14px;box-shadow:0 14px 40px rgba(0,0,0,.22);display:flex;flex-direction:column;overflow:hidden}
+#mPanel.hidden{display:none}
+.mp-h{display:flex;align-items:center;gap:6px;padding:10px 12px;background:var(--red);color:#fff}
+.mp-h b{flex:1;font-size:14px}
+.mp-h .btn{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.4)}
+.mp-h .btn:hover{background:#fff;color:var(--red)}
+.mp-b{padding:12px;overflow:auto;font-size:13px}
+.mp-b .choice{display:block;width:100%;text-align:left;background:#fff;border:1px solid var(--line-2);border-radius:10px;padding:10px 12px;margin-bottom:8px;cursor:pointer;font-family:inherit;font-size:13.5px;color:var(--ink)}
+.mp-b .choice:hover{border-color:var(--red);background:var(--red-50)}
+.mp-b .choice .qn{background:var(--red);color:#fff;border-radius:6px;padding:0 6px;font-size:11.5px;margin-right:6px}
+.mp-b .choice small{display:block;color:var(--muted);font-size:11.5px;margin-top:2px}
+.mprose p{margin:0 0 10px;line-height:1.85;font-size:13.5px;color:var(--ink)}
+.msum .s{border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-bottom:8px;background:var(--surface-2)}
+.msum .s h5{margin:0 0 3px;font-size:12px;color:var(--red)}
+@media (max-width:520px){.m-btn{width:84px;height:105px}.m-badge{font-size:11.5px}.m-badge::after{right:30px}}
+@media (prefers-reduced-motion:reduce){.m-badge{animation:none}}
+
+/* ---------- responsive ---------- */
+@media (max-width:1100px){.g3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr}
+  aside.sidebar{position:fixed;left:0;top:0;bottom:0;width:300px;height:100vh;z-index:40;transform:translateX(-102%);transition:transform .2s;box-shadow:0 0 40px rgba(0,0,0,.2)}
+  aside.sidebar.open{transform:none}
+  .menu-btn{display:inline-block}
+  .g2,.g3{grid-template-columns:1fr}
+  .cover-wrap{grid-template-columns:1fr}
+  .cover-art{min-height:320px;order:-1}
+  main{padding:14px 16px 60px}
+  dl.src{grid-template-columns:1fr}
+  .brand small{display:none}
+}
+@media (max-width:520px){.cover-stats{grid-template-columns:1fr 1fr}.kpi .k-v{font-size:20px}.card .ch{height:260px}.top-actions .btn.hide-sm{display:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div id="loading"><div><div class="spin"></div>กำลังโหลดและตรวจสอบข้อมูลต้นทาง…</div></div>
+
+<!-- ================= COVER ================= -->
+<section id="cover" aria-label="หน้าเปิด">
+  <div class="cover-wrap">
+    <div class="cover-text">
+      <span class="cover-kicker"><span class="dot"></span>Data Analytics · Thailand vs. the World</span>
+      <h1>แดชบอร์ดวิเคราะห์เสรีภาพทางอินเทอร์เน็ต ข่าวปลอม และความเสียหายจากมิจฉาชีพ
+        <span class="en">Digital Freedom &amp; Disinformation Intelligence Dashboard</span></h1>
+      <p>วิเคราะห์ความสัมพันธ์ระหว่างเสรีภาพทางอินเทอร์เน็ต สถานการณ์ข่าวปลอม และความเสียหายจากมิจฉาชีพ เปรียบเทียบประเทศไทยกับต่างประเทศ
+        โดยใช้ข้อมูลจากไฟล์ที่แนบมาเท่านั้น ทุกตัวเลขตรวจสอบย้อนกลับไปยังไฟล์ คอลัมน์ และสูตรคำนวณได้</p>
+      <div class="cover-stats" id="coverStats"></div>
+      <button class="btn-open" id="btnOpen" type="button">Open Dashboard →</button>
+      <div class="cover-note">ภาพประกอบเป็นภาพวาดเชิงสัญลักษณ์ (ผู้ใช้โทรศัพท์ได้รับข้อความหลอกลวง) สร้างขึ้นเอง ไม่ใช่ภาพข่าวหรือภาพผู้เสียหายจริง
+        เนื่องจากไฟล์แนบไม่มีภาพประกอบ และเพื่อไม่ละเมิดความเป็นส่วนตัวของผู้เสียหาย</div>
+    </div>
+    <div class="cover-art" aria-hidden="true">
+      <svg viewBox="0 0 520 520" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="scr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#f4f1ef"/></linearGradient>
+        </defs>
+        <g opacity=".18" fill="#fff">
+          <rect x="20" y="40" width="150" height="10" rx="5"/><rect x="20" y="60" width="110" height="10" rx="5"/>
+          <rect x="360" y="440" width="140" height="10" rx="5"/><rect x="390" y="460" width="110" height="10" rx="5"/>
+          <circle cx="455" cy="70" r="38"/><circle cx="60" cy="460" r="26"/>
+        </g>
+        <!-- hand -->
+        <path d="M120 470 C 110 400, 130 360, 170 330 L 190 460 Z" fill="#e8b49a"/>
+        <!-- phone -->
+        <rect x="150" y="70" width="220" height="410" rx="34" fill="#1d1f23"/>
+        <rect x="162" y="84" width="196" height="382" rx="24" fill="url(#scr)"/>
+        <rect x="230" y="92" width="60" height="8" rx="4" fill="#1d1f23"/>
+        <text x="178" y="128" font-family="IBM Plex Sans Thai,Tahoma,sans-serif" font-size="13" font-weight="600" fill="#16181b">ข้อความ</text>
+        <circle cx="186" cy="150" r="10" fill="#d6d3cf"/><rect x="202" y="144" width="80" height="8" rx="4" fill="#d6d3cf"/>
+        <!-- scam bubble -->
+        <rect x="174" y="170" width="168" height="112" rx="14" fill="#fdecea" stroke="#f3c6c3"/>
+        <text font-family="IBM Plex Sans Thai,Tahoma,sans-serif" font-size="11.5" fill="#7a1016">
+          <tspan x="186" y="192">แจ้งเตือน! บัญชีของคุณ</tspan>
+          <tspan x="186" y="210">จะถูกระงับภายใน 24 ชม.</tspan>
+          <tspan x="186" y="228">ยืนยันตัวตนเพื่อรับเงินคืน</tspan>
+          <tspan x="186" y="250" fill="#2a78d6" text-decoration="underline">http://refund-xx.example</tspan>
+        </text>
+        <rect x="186" y="262" width="74" height="10" rx="5" fill="#a51d24"/>
+        <!-- fake news card -->
+        <rect x="174" y="296" width="168" height="84" rx="12" fill="#fff" stroke="#e6e4e0"/>
+        <rect x="186" y="308" width="56" height="44" rx="6" fill="#e6e4e0"/>
+        <rect x="250" y="310" width="80" height="7" rx="3.5" fill="#cfcac4"/>
+        <rect x="250" y="324" width="66" height="7" rx="3.5" fill="#cfcac4"/>
+        <rect x="186" y="360" width="62" height="12" rx="6" fill="#a51d24"/>
+        <text x="194" y="369.5" font-family="IBM Plex Sans Thai,Tahoma,sans-serif" font-size="8.5" font-weight="700" fill="#fff">ข่าวปลอม</text>
+        <rect x="174" y="394" width="168" height="40" rx="12" fill="#fff" stroke="#e6e4e0"/>
+        <rect x="186" y="408" width="100" height="7" rx="3.5" fill="#cfcac4"/>
+        <!-- warning badge -->
+        <g transform="translate(330 120)">
+          <circle r="44" fill="#fff"/>
+          <path d="M0 -26 L 26 20 L -26 20 Z" fill="#a51d24"/>
+          <rect x="-3" y="-10" width="6" height="18" rx="3" fill="#fff"/><circle cy="13" r="3.4" fill="#fff"/>
+        </g>
+        <!-- thumb -->
+        <path d="M330 470 C 350 420, 360 390, 345 360 C 335 345, 318 352, 318 372 L 316 420 L 300 470 Z" fill="#e8b49a"/>
+      </svg>
+      <span class="caption">ภาพประกอบเชิงสัญลักษณ์ — ไม่ใช่ข้อมูล</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= APP ================= -->
+<div id="app" class="hidden">
+  <header class="top">
+    <div class="top-inner">
+      <button class="btn menu-btn" id="menuBtn" type="button" aria-label="เปิดตัวกรอง">☰ ตัวกรอง</button>
+      <div class="brand"><div class="logo">D</div><div><b>Digital Freedom &amp; Disinformation Intelligence</b>
+        <small>แดชบอร์ดวิเคราะห์เสรีภาพทางอินเทอร์เน็ต ข่าวปลอม และความเสียหายจากมิจฉาชีพ</small></div></div>
+      <div class="top-actions">
+        <button class="btn hide-sm" type="button" id="btnCover">หน้าแรก</button>
+        <button class="btn primary" type="button" id="btnReset">Reset Filters</button>
+      </div>
+    </div>
+    <nav class="tabs" id="tabs" aria-label="หน้า"></nav>
+  </header>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar" aria-label="ตัวกรอง"></aside>
+    <main id="main"></main>
+  </div>
+
+  <!-- ตัวละครผู้ช่วย (ภาพ 2D แบน) -->
+  <div id="mascot" aria-live="polite">
+    <div id="mPanel" class="hidden" role="dialog" aria-label="ผู้ช่วยสรุปผล">
+      <div class="mp-h"><b id="mpTitle">ผู้ช่วยสรุปผล</b><button type="button" class="btn sm" id="mpBack" title="ย้อนกลับ">‹ กลับ</button><button type="button" class="btn sm" id="mpClose" aria-label="ปิด">✕</button></div>
+      <div class="mp-b" id="mpBody"></div>
+    </div>
+    <button type="button" id="mBadge" class="m-badge">คลิกที่ฉันเพื่อดูสรุป</button>
+    <button type="button" id="mBtn" class="m-btn" aria-label="คลิกที่ฉันเพื่อดูสรุป">
+      <svg viewBox="0 0 200 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+        <!-- เสื้อสูท -->
+        <path d="M14 250 C14 196 48 168 100 166 C152 168 186 196 186 250 Z" fill="#2c2c2e"/>
+        <path d="M78 168 L100 214 L122 168 Z" fill="#f4f4f2"/>
+        <path d="M78 168 L100 214 L88 250 L60 250 Z" fill="#242426"/><path d="M122 168 L100 214 L112 250 L140 250 Z" fill="#242426"/>
+        <rect x="97" y="212" width="6" height="38" fill="#f4f4f2"/>
+        <!-- คอ ศีรษะ -->
+        <rect x="87" y="136" width="26" height="36" rx="10" fill="#f1cbb0"/>
+        <ellipse cx="53" cy="100" rx="7" ry="11" fill="#f6d7bf"/><ellipse cx="147" cy="100" rx="7" ry="11" fill="#f6d7bf"/>
+        <ellipse cx="100" cy="98" rx="47" ry="50" fill="#f9dfca"/>
+        <!-- ผม -->
+        <path d="M51 100 C42 52 74 30 104 32 C138 32 160 56 149 100 C146 82 138 70 124 64 C108 74 76 74 58 90 Z" fill="#1c1c1e"/>
+        <path d="M60 52 C70 22 118 18 140 44 C128 38 96 40 76 52 Z" fill="#1c1c1e"/>
+        <!-- หน้า -->
+        <circle cx="82" cy="102" r="5" fill="#1c1c1e"/><circle cx="118" cy="102" r="5" fill="#1c1c1e"/>
+        <circle cx="80.5" cy="100.5" r="1.5" fill="#fff"/><circle cx="116.5" cy="100.5" r="1.5" fill="#fff"/>
+        <ellipse cx="70" cy="118" rx="7" ry="4" fill="#f4a89a" opacity=".45"/><ellipse cx="130" cy="118" rx="7" ry="4" fill="#f4a89a" opacity=".45"/>
+        <path d="M89 123 Q100 133 111 123" fill="none" stroke="#c8453f" stroke-width="3" stroke-linecap="round"/>
+        <!-- แขนและไมค์ -->
+        <path d="M150 196 C172 226 150 244 118 240" fill="none" stroke="#2c2c2e" stroke-width="22" stroke-linecap="round"/>
+        <rect x="93" y="188" width="14" height="48" rx="5" fill="#4a4a4d"/>
+        <circle cx="100" cy="176" r="18" fill="#a9a9ad"/><circle cx="94" cy="170" r="5" fill="#d2d2d6" opacity=".7"/>
+        <rect x="76" y="196" width="48" height="19" rx="3" fill="#ffd84a" stroke="#2e7d32" stroke-width="1.5"/>
+        <text x="100" y="210" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="800" font-size="13" fill="#1f7a3a">NEWS</text>
+        <ellipse cx="112" cy="232" rx="17" ry="12" fill="#f9dfca"/><path d="M98 226 Q112 220 126 228" fill="none" stroke="#e0b99f" stroke-width="2"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<div id="modal" class="hidden" role="dialog" aria-modal="true"><div class="box"><div class="mh"><h3 id="mTitle"></h3>
+  <button class="btn sm" type="button" id="mClose">ปิด ✕</button></div><div class="mb" id="mBody"></div></div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
